@@ -1,0 +1,16 @@
+name: Repository
+  
+on: 
+  issues:
+    types:
+      - opened
+      - edited
+      
+jobs: 
+  build:
+    runs-on: [self-hosted, linux]
+    steps:
+    - name: Creating a repo from Template
+      if: contains(github.event.issue.labels.*.name, 'policies')
+      run: | 
+         echo "Testing Issue body"
