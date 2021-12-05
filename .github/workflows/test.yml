@@ -21,4 +21,4 @@ jobs:
          https://api.github.com/repos/Punith0480/Issue_test/issues/2)" >> $GITHUB_ENV
     - name: testing vaariable
       run: |
-         echo ${{ env.issue }}
+         echo "${{ env.issue }}"
