@@ -8,7 +8,9 @@ on:
       
 jobs: 
   build:
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
     - name: Creating a repo from Template
       if: contains(github.event.issue.labels.*.name, 'policies')
