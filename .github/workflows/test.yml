@@ -16,7 +16,9 @@ jobs:
       if: contains(github.event.issue.labels.*.name, 'policies')
       run: | 
          echo "Testing Issue body"
-         curl \
+         echo "issue=$(curl \
          -H "Accept: application/vnd.github.v3+json" \
-         https://api.github.com/repos/Punith0480/Issue_test/issues/2
-    - run: echo ${{ github.event.comment.body }}
+         https://api.github.com/repos/Punith0480/Issue_test/issues/2)" >> $GITHUB_ENV
+    - name: testing vaariable
+      run: |
+         echo ${{ env.issue }}
