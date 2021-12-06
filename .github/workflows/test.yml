@@ -23,4 +23,4 @@ jobs:
   
     - name: testing vaariable
       run: |
-         echo "${{ env.reponame) }}"
+         echo "${{ env.reponame }}"
