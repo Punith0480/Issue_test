@@ -7,26 +7,33 @@ on:
       - edited
 
 env: 
-  dismiss_pull_request_Team: Synergy-Admin
+  dismiss_pull_request_Team: Punith0480
   check_build_status: build,test
-  Admin: Synergy-admins
-  Writer: Synergy
-  TOKEN: ${{ secrets.AJ_PERSONAL_ACCESS_TOKEN }}
+  Admin: Punith0480
+  Writer: Punith0480
+  TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs: 
   build:
-    runs-on: [self-hosted, linux]
+    runs-on: ubuntu-latest
     steps:
     - name: Creating a repo from Template
       if: contains(github.event.issue.labels.*.name, 'policies')
       run: | 
+         echo "Testing Issue body"
+         echo "${{ github.event.issue.number }}"
+         echo "reponame=$(curl \
+         -H "Accept: application/vnd.github.v3+json" \
+         https://api.github.com/repos/Punith0480/Issue_test/issues/"${{ github.event.issue.number }}" | grep body | grep -oP '(?<=reponame:)\w+' )" >> $GITHUB_ENV
+         run: | 
           echo "Creating a repository using template"
           curl \
           -X POST \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${{ env.TOKEN }}" \
-          https://api.github.com/repo/philips-internal/synergy-datastore/generate \
-          -d '{"name":"Aj-createdrepo1","private":"true"}'
+          https://api.github.com/repo/Punith0480/helloworld-action-main/generate \
+          -d '{"name":"${{ env.reponame }}","private":"true"}'
+          
     
     - name: Creating branch policy
       if: ${{ contains(github.ref, 'refs/heads/Main/') }} && contains(github.event.issue.labels.*.name, 'policies')
@@ -46,7 +53,7 @@ jobs:
         -X PUT \
         -H "Accept: application/vnd.github.v3+json" \
         -H "Authorization: token ${{ env.TOKEN }}" \
-        https://api.github.com/orgs/philips-internal/teams/${{ env.Admin }}/repos/${{github.repository}} \
+        https://api.github.com/orgs/mPunith31/teams/${{ env.Admin }}/repos/${{github.repository}} \
         -d '{"permission":"admin"}'
         
     - name: Adding write Permissions 
@@ -56,7 +63,7 @@ jobs:
         -X PUT \
         -H "Accept: application/vnd.github.v3+json" \
         -H "Authorization: token ${{ env.TOKEN }}" \
-        https://api.github.com/orgs/philips-internal/teams/${{ env.Writer }}/repos/${{github.repository}} \
+        https://api.github.com/orgs/mPunith31/teams/${{ env.Writer }}/repos/${{github.repository}} \
         -d '{"permission":"push"}'  
         
     - name: Automerging enabled.
