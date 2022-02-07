@@ -49,7 +49,7 @@ jobs:
         -X PUT \
         -H "Accept: application/vnd.github.v3+json" \
         -H "Authorization: token ${{ env.TOKEN }}" \
-        https://api.github.com/orgs/mPunith31/teams/${{ env.Admin }}/repos/${{github.repository}} \
+        https://api.github.com/orgs/mPunith31/teams/${{ env.Admin }}/repos/${{env.reponame}} \
         -d '{"permission":"admin"}'
         
     - name: Adding write Permissions 
@@ -59,7 +59,7 @@ jobs:
         -X PUT \
         -H "Accept: application/vnd.github.v3+json" \
         -H "Authorization: token ${{ env.TOKEN }}" \
-        https://api.github.com/orgs/mPunith31/teams/${{ env.Writer }}/repos/${{github.repository}} \
+        https://api.github.com/orgs/mPunith31/teams/${{ env.Writer }}/repos/${{env.reponame}} \
         -d '{"permission":"push"}'  
         
     - name: Automerging enabled.
@@ -69,5 +69,5 @@ jobs:
           -X PATCH \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: token ${{ env.TOKEN }}" \
-          https://api.github.com/repos/${{github.repository}} \
+          https://api.github.com/repos/${{env.reponame}} \
           -d '{"allow_auto_merge":true}'
