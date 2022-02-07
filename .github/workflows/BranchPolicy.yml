@@ -22,7 +22,7 @@ jobs:
       run: | 
         echo "Branch_Policies"  
         echo "${{ env.BRANCH }}"
-        echo "${{github.repository}}"
+        echo "${{ github.repository }}"
         curl \
         -X PUT \
         -H "Accept: application/vnd.github.v3+json" \
