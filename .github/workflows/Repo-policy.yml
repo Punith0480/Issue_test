@@ -34,6 +34,7 @@ jobs:
         echo "Branch_Policies"  
          echo "${{ env.BRANCH }}"
         echo "${{ github.repository }}"
+        echo "${{ env.reponame }}"
         curl \
         -X PUT \
         -H "Accept: application/vnd.github.v3+json" \
