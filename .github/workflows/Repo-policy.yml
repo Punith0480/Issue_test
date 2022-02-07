@@ -32,6 +32,8 @@ jobs:
       if: ${{ contains(github.ref, 'refs/heads/Main/') }} && contains(github.event.issue.labels.*.name, 'policies')
       run: | 
         echo "Branch_Policies"  
+         echo "${{ env.BRANCH }}"
+        echo "${{ github.repository }}"
         curl \
         -X PUT \
         -H "Accept: application/vnd.github.v3+json" \
